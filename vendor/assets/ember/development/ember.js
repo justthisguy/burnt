@@ -864,9 +864,9 @@ Ember.handleErrors = function(func, context) {
 
 /**
   @private
-  
+
   Prefix used for guids through out Ember.
-  
+
 */
 Ember.GUID_PREFIX = 'ember';
 
@@ -2201,7 +2201,7 @@ function suspendListener(obj, eventName, target, method, callback) {
 
   Suspends multiple listeners during a callback.
 
-  
+
   @method suspendListeners
   @for Ember
   @param obj
@@ -2269,7 +2269,7 @@ function watchedEvents(obj) {
   is skipped, and once listeners are removed. A listener without
   a target is executed on the passed object. If an array of actions
   is not passed, the actions stored on the passed object are invoked.
-  
+
   @method sendEvent
   @for Ember
   @param obj
@@ -3042,14 +3042,14 @@ Map.create = function() {
 Map.prototype = {
   /**
     This property will change as the number of objects in the map changes.
-   
+
     @property length
     @type number
     @default 0
   */
   length: 0,
-    
-    
+
+
   /**
     Retrieve the value associated with a given key.
 
@@ -4450,8 +4450,8 @@ ComputedPropertyPrototype.property = function() {
   ```
   person: function() {
     var personId = this.get('personId');
-    return App.Person.create({ id: personId });
-  }.property().meta({ type: App.Person })
+    return Burnt.Person.create({ id: personId });
+  }.property().meta({ type: Burnt.Person })
   ```
 
   The hash that you pass to the `meta()` function will be saved on the
@@ -6357,7 +6357,7 @@ Ember.run.scheduleOnce = function(queue, target, method) {
   where all the DOM element operations happen). Example:
 
   ```javascript
-  App.MyCollectionView = Ember.CollectionView.extend({
+  Burnt.MyCollectionView = Ember.CollectionView.extend({
     didInsertElement: function() {
       Ember.run.scheduleOnce('afterRender', this, 'processChildElements');
     },
@@ -7355,7 +7355,7 @@ Ember.mixin = function(obj) {
   added to other classes. For instance,
 
   ```javascript
-  App.Editable = Ember.Mixin.create({
+  Burnt.Editable = Ember.Mixin.create({
     edit: function() {
       console.log('starting to edit');
       this.set('isEditing', true);
@@ -7365,11 +7365,11 @@ Ember.mixin = function(obj) {
 
   // Mix mixins into classes by passing them as the first arguments to
   // .extend.
-  App.CommentView = Ember.View.extend(App.Editable, {
+  Burnt.CommentView = Ember.View.extend(Burnt.Editable, {
     template: Ember.Handlebars.compile('{{#if view.isEditing}}...{{else}}...{{/if}}')
   });
 
-  commentView = App.CommentView.create();
+  commentView = Burnt.CommentView.create();
   commentView.edit(); // outputs 'starting to edit'
   ```
 
@@ -7383,17 +7383,17 @@ Ember.mixin = function(obj) {
 
   ```javascript
   //filters array will be shared amongst any object implementing mixin
-  App.Filterable = Ember.Mixin.create({
+  Burnt.Filterable = Ember.Mixin.create({
     filters: Ember.A()
   });
 
   //filters will be a separate  array for every object implementing the mixin
-  App.Filterable = Ember.Mixin.create({
+  Burnt.Filterable = Ember.Mixin.create({
     filters: Ember.computed(function(){return Ember.A();})
   });
 
   //filters will be created as a separate array during the object's initialization
-  App.Filterable = Ember.Mixin.create({
+  Burnt.Filterable = Ember.Mixin.create({
     init: function() {
       this._super();
       this.set("filters", Ember.A());
@@ -7582,7 +7582,7 @@ Alias.prototype = new Ember.Descriptor();
   Makes a property or method available via an additional name.
 
   ```javascript
-  App.PaintSample = Ember.Object.extend({
+  Burnt.PaintSample = Ember.Object.extend({
     color: 'red',
     colour: Ember.alias('color'),
     name: function() {
@@ -7591,7 +7591,7 @@ Alias.prototype = new Ember.Descriptor();
     moniker: Ember.alias("name")
   });
 
-  var paintSample = App.PaintSample.create()
+  var paintSample = Burnt.PaintSample.create()
   paintSample.get('colour');  // 'red'
   paintSample.moniker();      // 'Zed'
   ```
@@ -7611,14 +7611,14 @@ Ember.alias = function(methodName) {
   Makes a method available via an additional name.
 
   ```javascript
-  App.Person = Ember.Object.extend({
+  Burnt.Person = Ember.Object.extend({
     name: function() {
       return 'Tomhuda Katzdale';
     },
     moniker: Ember.aliasMethod('name')
   });
 
-  var goodGuy = App.Person.create()
+  var goodGuy = Burnt.Person.create()
   ```
 
   @method aliasMethod
@@ -7719,7 +7719,7 @@ Ember.immediateObserver = function() {
   A `beforeObserver` is an alternative form of `.observesBefore()`.
 
   ```javascript
-  App.PersonView = Ember.View.extend({
+  Burnt.PersonView = Ember.View.extend({
 
     friends: [{ name: 'Tom' }, { name: 'Stefan' }, { name: 'Kris' }],
 
@@ -10729,13 +10729,13 @@ CoreObject.PrototypeMixin = Mixin.create({
     Example:
 
     ```javascript
-    App.Person = Ember.Object.extend({
+    Burnt.Person = Ember.Object.extend({
       init: function() {
         alert('Name is ' + this.get('name'));
       }
     });
 
-    var steve = App.Person.create({
+    var steve = Burnt.Person.create({
       name: "Steve"
     });
 
@@ -10767,17 +10767,17 @@ CoreObject.PrototypeMixin = Mixin.create({
     property and a normal one:
 
     ```javascript
-    App.BarView = Ember.View.extend({
+    Burnt.BarView = Ember.View.extend({
       someNonConcatenatedProperty: ['bar'],
       classNames: ['bar']
     });
 
-    App.FooBarView = App.BarView.extend({
+    Burnt.FooBarView = Burnt.BarView.extend({
       someNonConcatenatedProperty: ['foo'],
       classNames: ['foo'],
     });
 
-    var fooBarView = App.FooBarView.create();
+    var fooBarView = Burnt.FooBarView.create();
     fooBarView.get('someNonConcatenatedProperty'); // ['foo']
     fooBarView.get('classNames'); // ['ember-view', 'bar', 'foo']
     ```
@@ -10786,7 +10786,7 @@ CoreObject.PrototypeMixin = Mixin.create({
     above example:
 
     ```javascript
-    var view = App.FooBarView.create({
+    var view = Burnt.FooBarView.create({
       someNonConcatenatedProperty: ['baz'],
       classNames: ['baz']
     })
@@ -10796,7 +10796,7 @@ CoreObject.PrototypeMixin = Mixin.create({
     Adding a single property that is not an array will just add it in the array:
 
     ```javascript
-    var view = App.FooBarView.create({
+    var view = Burnt.FooBarView.create({
       classNames: 'baz'
     })
     view.get('classNames'); // ['ember-view', 'bar', 'foo', 'baz']
@@ -10896,27 +10896,27 @@ CoreObject.PrototypeMixin = Mixin.create({
     than Javascript's `toString` typically does, in a generic way for all Ember
     objects.
 
-        App.Person = Em.Object.extend()
-        person = App.Person.create()
-        person.toString() //=> "<App.Person:ember1024>"
+        Burnt.Person = Em.Object.extend()
+        person = Burnt.Person.create()
+        person.toString() //=> "<Burnt.Person:ember1024>"
 
     If the object's class is not defined on an Ember namespace, it will
     indicate it is a subclass of the registered superclass:
 
-        Student = App.Person.extend()
+        Student = Burnt.Person.extend()
         student = Student.create()
-        student.toString() //=> "<(subclass of App.Person):ember1025>"
+        student.toString() //=> "<(subclass of Burnt.Person):ember1025>"
 
     If the method `toStringExtension` is defined, its return value will be
     included in the output.
 
-        App.Teacher = App.Person.extend({
+        Burnt.Teacher = Burnt.Person.extend({
           toStringExtension: function() {
             return this.get('fullName');
           }
         });
-        teacher = App.Teacher.create()
-        teacher.toString(); //=> "<App.Teacher:ember1026:Tom Dale>"
+        teacher = Burnt.Teacher.create()
+        teacher.toString(); //=> "<Burnt.Teacher:ember1026:Tom Dale>"
 
     @method toString
     @return {String} string representation
@@ -10956,19 +10956,19 @@ var ClassMixin = Mixin.create({
     Creates a new subclass.
 
     ```javascript
-    App.Person = Ember.Object.extend({
+    Burnt.Person = Ember.Object.extend({
       say: function(thing) {
         alert(thing);
        }
     });
     ```
 
-    This defines a new subclass of Ember.Object: `App.Person`. It contains one method: `say()`.
+    This defines a new subclass of Ember.Object: `Burnt.Person`. It contains one method: `say()`.
 
     You can also create a subclass from any existing class by calling its `extend()`  method. For example, you might want to create a subclass of Ember's built-in `Ember.View` class:
 
     ```javascript
-    App.PersonView = Ember.View.extend({
+    Burnt.PersonView = Ember.View.extend({
       tagName: 'li',
       classNameBindings: ['isAdministrator']
     });
@@ -10977,14 +10977,14 @@ var ClassMixin = Mixin.create({
     When defining a subclass, you can override methods but still access the implementation of your parent class by calling the special `_super()` method:
 
     ```javascript
-    App.Person = Ember.Object.extend({
+    Burnt.Person = Ember.Object.extend({
       say: function(thing) {
         var name = this.get('name');
         alert(name + ' says: ' + thing);
       }
     });
 
-    App.Soldier = App.Person.extend({
+    Burnt.Soldier = Burnt.Person.extend({
       say: function(thing) {
         this._super(thing + ", sir!");
       },
@@ -10993,38 +10993,38 @@ var ClassMixin = Mixin.create({
       }
     });
 
-    var yehuda = App.Soldier.create({
+    var yehuda = Burnt.Soldier.create({
       name: "Yehuda Katz"
     });
 
     yehuda.say("Yes");  // alerts "Yehuda Katz says: Yes, sir!"
     ```
 
-    The `create()` on line #17 creates an *instance* of the `App.Soldier` class. The `extend()` on line #8 creates a *subclass* of `App.Person`. Any instance of the `App.Person` class will *not* have the `march()` method.
+    The `create()` on line #17 creates an *instance* of the `Burnt.Soldier` class. The `extend()` on line #8 creates a *subclass* of `Burnt.Person`. Any instance of the `Burnt.Person` class will *not* have the `march()` method.
 
     You can also pass `Ember.Mixin` classes to add additional properties to the subclass.
 
     ```javascript
-    App.Person = Ember.Object.extend({
+    Burnt.Person = Ember.Object.extend({
       say: function(thing) {
         alert(this.get('name') + ' says: ' + thing);
       }
     });
 
-    App.SingingMixin = Ember.Mixin.create({
+    Burnt.SingingMixin = Ember.Mixin.create({
       sing: function(thing){
         alert(this.get('name') + ' sings: la la la ' + thing);
       }
     });
 
-    App.BroadwayStar = App.Person.extend(App.SingingMixin, {
+    Burnt.BroadwayStar = Burnt.Person.extend(Burnt.SingingMixin, {
       dance: function() {
         alert(this.get('name') + ' dances: tap tap tap tap ');
       }
     });
     ```
 
-    The `App.BroadwayStar` class contains three methods: `say()`, `sing()`, and `dance()`.
+    The `Burnt.BroadwayStar` class contains three methods: `say()`, `sing()`, and `dance()`.
 
     @method extend
     @static
@@ -11073,13 +11073,13 @@ var ClassMixin = Mixin.create({
     containing values to initialize the newly instantiated object with.
 
     ```javascript
-    App.Person = Ember.Object.extend({
+    Burnt.Person = Ember.Object.extend({
       helloWorld: function() {
         alert("Hi, my name is " + this.get('name'));
       }
     });
 
-    var tom = App.Person.create({
+    var tom = Burnt.Person.create({
       name: 'Tom Dale'
     });
 
@@ -11093,7 +11093,7 @@ var ClassMixin = Mixin.create({
     instance during initialization:
 
     ```javascript
-    var noName = App.Person.create();
+    var noName = Burnt.Person.create();
     noName.helloWorld(); // alerts undefined
     ```
 
@@ -11168,34 +11168,34 @@ var ClassMixin = Mixin.create({
     and not on any instance of that class.
 
     ```javascript
-    App.Person = Ember.Object.extend({
+    Burnt.Person = Ember.Object.extend({
       name : "",
       sayHello : function(){
         alert("Hello. My name is " + this.get('name'));
       }
     });
 
-    App.Person.reopenClass({
+    Burnt.Person.reopenClass({
       species : "Homo sapiens",
       createPerson: function(newPersonsName){
-        return App.Person.create({
+        return Burnt.Person.create({
           name:newPersonsName
         });
       }
     });
 
-    var tom = App.Person.create({
+    var tom = Burnt.Person.create({
       name : "Tom Dale"
     });
-    var yehuda = App.Person.createPerson("Yehuda Katz");
+    var yehuda = Burnt.Person.createPerson("Yehuda Katz");
 
     tom.sayHello(); // "Hello. My name is Tom Dale"
     yehuda.sayHello(); // "Hello. My name is Yehuda Katz"
-    alert(App.Person.species); // "Homo sapiens"
+    alert(Burnt.Person.species); // "Homo sapiens"
     ```
 
     Note that `species` and `createPerson` are *not* valid on the `tom` and `yehuda`
-    variables. They are only valid on `App.Person`.
+    variables. They are only valid on `Burnt.Person`.
 
     To add functions and properties to instances of
     a constructor by extending the constructor's prototype
@@ -11233,8 +11233,8 @@ var ClassMixin = Mixin.create({
     ```javascript
     person: function() {
       var personId = this.get('personId');
-      return App.Person.create({ id: personId });
-    }.property().meta({ type: App.Person })
+      return Burnt.Person.create({ id: personId });
+    }.property().meta({ type: Burnt.Person })
     ```
 
     Once you've done this, you can retrieve the values saved to the computed
@@ -11482,7 +11482,7 @@ function classToString() {
   if (this[NAME_KEY]) {
     ret = this[NAME_KEY];
   } else if (this._toString) {
-    ret = this._toString; 
+    ret = this._toString;
   } else {
     var str = superClassString(this);
     if (str) {
@@ -13830,12 +13830,12 @@ ReduceComputedProperty.prototype.property = function () {
   Example
 
   ```javascript
-  App.PeopleController = Ember.ArrayController.extend({
+  Burnt.PeopleController = Ember.ArrayController.extend({
     itemController: 'person',
 
     sortedPeople: Ember.computed.sort('@this.@each.reversedName', function(personA, personB) {
       // `reversedName` isn't defined on Person, but we have access to it via
-      // the item controller App.PersonController.  If we'd used
+      // the item controller Burnt.PersonController.  If we'd used
       // `content.@each.reversedName` above, we would be getting the objects
       // directly and not have access to `reversedName`.
       //
@@ -13846,7 +13846,7 @@ ReduceComputedProperty.prototype.property = function () {
     })
   });
 
-  App.PersonController = Ember.ObjectController.extend({
+  Burnt.PersonController = Ember.ObjectController.extend({
     reversedName: function () {
       return reverse(get(this, 'name'));
     }.property('name')
@@ -14090,12 +14090,12 @@ var get = Ember.get,
   Example
 
   ```javascript
-  App.Person = Ember.Object.extend({
+  Burnt.Person = Ember.Object.extend({
     childAges: Ember.computed.mapBy('children', 'age'),
     maxChildAge: Ember.computed.max('childAges')
   });
 
-  var lordByron = App.Person.create({children: []});
+  var lordByron = Burnt.Person.create({children: []});
   lordByron.get('maxChildAge'); // -Infinity
   lordByron.get('children').pushObject({name: 'Augusta Ada Byron', age: 7});
   lordByron.get('maxChildAge'); // 7
@@ -14132,12 +14132,12 @@ Ember.computed.max = function (dependentKey) {
   Example
 
   ```javascript
-  App.Person = Ember.Object.extend({
+  Burnt.Person = Ember.Object.extend({
     childAges: Ember.computed.mapBy('children', 'age'),
     minChildAge: Ember.computed.min('childAges')
   });
 
-  var lordByron = App.Person.create({children: []});
+  var lordByron = Burnt.Person.create({children: []});
   lordByron.get('minChildAge'); // Infinity
   lordByron.get('children').pushObject({name: 'Augusta Ada Byron', age: 7});
   lordByron.get('minChildAge'); // 7
@@ -14180,13 +14180,13 @@ Ember.computed.min = function (dependentKey) {
   Example
 
   ```javascript
-  App.Hamster = Ember.Object.extend({
+  Burnt.Hamster = Ember.Object.extend({
     excitingChores: Ember.computed.map('chores', function(chore) {
       return chore.toUpperCase() + '!';
     })
   });
 
-  var hamster = App.Hamster.create({chores: ['cook', 'clean', 'write more unit tests']});
+  var hamster = Burnt.Hamster.create({chores: ['cook', 'clean', 'write more unit tests']});
   hamster.get('excitingChores'); // ['COOK!', 'CLEAN!', 'WRITE MORE UNIT TESTS!']
   ```
 
@@ -14218,11 +14218,11 @@ Ember.computed.map = function(dependentKey, callback) {
   Example
 
   ```javascript
-  App.Person = Ember.Object.extend({
+  Burnt.Person = Ember.Object.extend({
     childAges: Ember.computed.mapBy('children', 'age')
   });
 
-  var lordByron = App.Person.create({children: []});
+  var lordByron = Burnt.Person.create({children: []});
   lordByron.get('childAges'); // []
   lordByron.get('children').pushObject({name: 'Augusta Ada Byron', age: 7});
   lordByron.get('childAges'); // [7]
@@ -14264,13 +14264,13 @@ Ember.computed.mapProperty = Ember.computed.mapBy;
   Example
 
   ```javascript
-  App.Hamster = Ember.Object.extend({
+  Burnt.Hamster = Ember.Object.extend({
     remainingChores: Ember.computed.filter('chores', function(chore) {
       return !chore.done;
     })
   });
 
-  var hamster = App.Hamster.create({chores: [
+  var hamster = Burnt.Hamster.create({chores: [
     {name: 'cook', done: true},
     {name: 'clean', done: true},
     {name: 'write more unit tests', done: false}
@@ -14321,11 +14321,11 @@ Ember.computed.filter = function(dependentKey, callback) {
   Example
 
   ```javascript
-  App.Hamster = Ember.Object.extend({
+  Burnt.Hamster = Ember.Object.extend({
     remainingChores: Ember.computed.filterBy('chores', 'done', false)
   });
 
-  var hamster = App.Hamster.create({chores: [
+  var hamster = Burnt.Hamster.create({chores: [
     {name: 'cook', done: true},
     {name: 'clean', done: true},
     {name: 'write more unit tests', done: false}
@@ -14373,11 +14373,11 @@ Ember.computed.filterProperty = Ember.computed.filterBy;
   Example
 
   ```javascript
-  App.Hamster = Ember.Object.extend({
+  Burnt.Hamster = Ember.Object.extend({
     uniqueFruits: Ember.computed.uniq('fruits')
   });
 
-  var hamster = App.Hamster.create({fruits: [
+  var hamster = Burnt.Hamster.create({fruits: [
     'banana',
     'grape',
     'kale',
@@ -14518,12 +14518,12 @@ Ember.computed.intersect = function () {
   Example
 
   ```javascript
-  App.Hamster = Ember.Object.extend({
+  Burnt.Hamster = Ember.Object.extend({
     likes: ['banana', 'grape', 'kale'],
     wants: Ember.computed.setDiff('likes', 'fruits')
   });
 
-  var hamster = App.Hamster.create({fruits: [
+  var hamster = Burnt.Hamster.create({fruits: [
     'grape',
     'kale',
   ]});
@@ -14778,7 +14778,7 @@ Ember.computed.sort = function (itemsKey, sortDefinition) {
 (function() {
 /**
   Expose RSVP implementation
-  
+
   Documentation can be found here: https://github.com/tildeio/rsvp.js/blob/master/README.md
 
   @class RSVP
@@ -15681,7 +15681,7 @@ Ember.TargetActionSupport = Ember.Mixin.create({
   and target will be retrieved from properties of the object. For example:
 
   ```javascript
-  App.SaveButtonView = Ember.View.extend(Ember.TargetActionSupport, {
+  Burnt.SaveButtonView = Ember.View.extend(Ember.TargetActionSupport, {
     target: Ember.computed.alias('controller'),
     action: 'save',
     actionContext: Ember.computed.alias('context'),
@@ -15696,7 +15696,7 @@ Ember.TargetActionSupport = Ember.Mixin.create({
   an optional object argument to `triggerAction` as well.
 
   ```javascript
-  App.SaveButtonView = Ember.View.extend(Ember.TargetActionSupport, {
+  Burnt.SaveButtonView = Ember.View.extend(Ember.TargetActionSupport, {
     click: function() {
       this.triggerAction({
         action: 'save',
@@ -15713,7 +15713,7 @@ Ember.TargetActionSupport = Ember.Mixin.create({
   to `triggerAction`, or a combination:
 
   ```javascript
-  App.SaveButtonView = Ember.View.extend(Ember.TargetActionSupport, {
+  Burnt.SaveButtonView = Ember.View.extend(Ember.TargetActionSupport, {
     target: Ember.computed.alias('controller'),
     click: function() {
       this.triggerAction({
@@ -15778,14 +15778,14 @@ Ember.TargetActionSupport = Ember.Mixin.create({
   This mixin allows for Ember objects to subscribe to and emit events.
 
   ```javascript
-  App.Person = Ember.Object.extend(Ember.Evented, {
+  Burnt.Person = Ember.Object.extend(Ember.Evented, {
     greet: function() {
       // ...
       this.trigger('greet');
     }
   });
 
-  var person = App.Person.create();
+  var person = Burnt.Person.create();
 
   person.on('greet', function() {
     console.log('Our person has greeted');
@@ -16152,7 +16152,7 @@ function observePromise(proxy, promise) {
   controller.get('lastName')  //=> 'Penner'
   ```
 
-  If the controller is backing a template, the attributes are 
+  If the controller is backing a template, the attributes are
   bindable from within that template
 
   ```handlebars
@@ -18125,8 +18125,8 @@ var get = Ember.get, set = Ember.set, forEach = Ember.EnumerableUtils.forEach;
    ```javascript
   songsController.get('content').get('firstObject'); // Returns the unsorted original content
   songsController.get('firstObject'); // Returns the sorted content.
-  ``` 
-  
+  ```
+
   Although the sorted content can also be accessed through the arrangedContent property,
   it is preferable to use the proxied class and not the arrangedContent array directly.
 
@@ -18215,7 +18215,7 @@ Ember.SortableMixin = Ember.Mixin.create(Ember.MutableEnumerable, {
   /**
     Overrides the default arrangedContent from arrayProxy in order to sort by sortFunction.
     Also sets up observers for each sortProperty on each item in the content Array.
-    
+
     @property arrangedContent
   */
 
@@ -18411,11 +18411,11 @@ var get = Ember.get, set = Ember.set, forEach = Ember.EnumerableUtils.forEach,
   ```
 
   ```javascript
-  App.PostsController = Ember.ArrayController.extend({
+  Burnt.PostsController = Ember.ArrayController.extend({
     itemController: 'post'
   });
 
-  App.PostController = Ember.ObjectController.extend({
+  Burnt.PostController = Ember.ObjectController.extend({
     // the `title` property will be proxied to the underlying post.
 
     titleLength: function() {
@@ -18431,12 +18431,12 @@ var get = Ember.get, set = Ember.set, forEach = Ember.EnumerableUtils.forEach,
   For example:
 
   ```javascript
-  App.MyArrayController = Ember.ArrayController.extend({
+  Burnt.MyArrayController = Ember.ArrayController.extend({
     lookupItemController: function( object ) {
       if (object.get('isSpecial')) {
-        return "special"; // use App.SpecialController
+        return "special"; // use Burnt.SpecialController
       } else {
-        return "regular"; // use App.RegularController
+        return "regular"; // use Burnt.RegularController
       }
     }
   });
@@ -18474,12 +18474,12 @@ Ember.ArrayController = Ember.ArrayProxy.extend(Ember.ControllerMixin,
     For example:
 
     ```javascript
-    App.MyArrayController = Ember.ArrayController.extend({
+    Burnt.MyArrayController = Ember.ArrayController.extend({
       lookupItemController: function( object ) {
         if (object.get('isSpecial')) {
-          return "special"; // use App.SpecialController
+          return "special"; // use Burnt.SpecialController
         } else {
-          return "regular"; // use App.RegularController
+          return "regular"; // use Burnt.RegularController
         }
       }
     });
@@ -23025,9 +23025,9 @@ var get = Ember.get, set = Ember.set, fmt = Ember.String.fmt;
   CustomCollectionView = Ember.CollectionView.extend({
     createChildView: function(viewClass, attrs) {
       if (attrs.content.kind == 'album') {
-        viewClass = App.AlbumView;
+        viewClass = Burnt.AlbumView;
       } else {
-        viewClass = App.SongView;
+        viewClass = Burnt.SongView;
       }
       return this._super(viewClass, attrs);
     }
@@ -23408,7 +23408,7 @@ var get = Ember.get, set = Ember.set, isNone = Ember.isNone,
   `hello` for the `app-profile` component:
 
   ```javascript
-  App.AppProfileComponent = Ember.Component.extend({
+  Burnt.AppProfileComponent = Ember.Component.extend({
     actions: {
       hello: function(name) {
         console.log("Hello", name);
@@ -23497,7 +23497,7 @@ Ember.Component = Ember.View.extend(Ember.TargetActionSupport, {
 
 
     ```javascript
-    App.PlayButtonComponent = Ember.Component.extend({
+    Burnt.PlayButtonComponent = Ember.Component.extend({
       click: function(){
         if (this.get('isPlaying')) {
           this.triggerAction('play');
@@ -23519,11 +23519,11 @@ Ember.Component = Ember.View.extend(Ember.TargetActionSupport, {
     When the component receives a browser `click` event it translate this
     interaction into application-specific semantics ("play" or "stop") and
     triggers the specified action name on the controller for the template
-    where the component is used: 
+    where the component is used:
 
 
     ```javascript
-    App.ApplicationController = Ember.Controller.extend({
+    Burnt.ApplicationController = Ember.Controller.extend({
       actions: {
         musicStarted: function(){
           // called when the play button is clicked
@@ -23541,7 +23541,7 @@ Ember.Component = Ember.View.extend(Ember.TargetActionSupport, {
     is assumed.
 
     ```javascript
-    App.NextButtonComponent = Ember.Component.extend({
+    Burnt.NextButtonComponent = Ember.Component.extend({
       click: function(){
         this.sendAction();
       }
@@ -23554,7 +23554,7 @@ Ember.Component = Ember.View.extend(Ember.TargetActionSupport, {
     ```
 
     ```javascript
-    App.ApplicationController = Ember.Controller.extend({
+    Burnt.ApplicationController = Ember.Controller.extend({
       actions: {
         playNextSongInAlbum: function(){
           ...
@@ -23615,7 +23615,7 @@ event handling in custom View subclasses.
 For example:
 
 ```javascript
-App.SaveButtonView = Ember.View.extend(Ember.ViewTargetActionSupport, {
+Burnt.SaveButtonView = Ember.View.extend(Ember.ViewTargetActionSupport, {
   action: 'save',
   click: function() {
     this.triggerAction(); // Sends the `save` action, along with the current context
@@ -23628,7 +23628,7 @@ The `action` can be provided as properties of an optional object argument
 to `triggerAction` as well.
 
 ```javascript
-App.SaveButtonView = Ember.View.extend(Ember.ViewTargetActionSupport, {
+Burnt.SaveButtonView = Ember.View.extend(Ember.ViewTargetActionSupport, {
   click: function() {
     this.triggerAction({
       action: 'save'
@@ -23800,7 +23800,7 @@ define("metamorph",
 
       /**
       * @public
-      * 
+      *
       * Remove this object (including starting and ending
       * placeholders).
       *
@@ -24209,11 +24209,11 @@ Ember.Handlebars = objectCreate(Handlebars);
 
   ## Custom view helper example
 
-  Assuming a view subclass named `App.CalendarView` were defined, a helper
+  Assuming a view subclass named `Burnt.CalendarView` were defined, a helper
   for rendering instances of this view could be registered as follows:
 
   ```javascript
-  Ember.Handlebars.helper('calendar', App.CalendarView):
+  Ember.Handlebars.helper('calendar', Burnt.CalendarView):
   ```
 
   The above bound helper can be used inside of templates as follows:
@@ -24225,7 +24225,7 @@ Ember.Handlebars = objectCreate(Handlebars);
   Which is functionally equivalent to:
 
   ```handlebars
-  {{view App.CalendarView}}
+  {{view Burnt.CalendarView}}
   ```
 
   Options in the helper will be passed to the view in exactly the same
@@ -26547,7 +26547,7 @@ var get = Ember.get, handlebarsGet = Ember.Handlebars.get, fmt = Ember.String.fm
   Given an empty `<body>` the following template:
 
   ```handlebars
-  {{#collection contentBinding="App.items"}}
+  {{#collection contentBinding="Burnt.items"}}
     Hi {{view.content.name}}
   {{/collection}}
   ```
@@ -26555,8 +26555,8 @@ var get = Ember.get, handlebarsGet = Ember.Handlebars.get, fmt = Ember.String.fm
   And the following application code
 
   ```javascript
-  App = Ember.Application.create()
-  App.items = [
+  Burnt = Ember.Application.create()
+  Burnt.items = [
     Ember.Object.create({name: 'Dave'}),
     Ember.Object.create({name: 'Mary'}),
     Ember.Object.create({name: 'Sara'})
@@ -26581,20 +26581,20 @@ var get = Ember.get, handlebarsGet = Ember.Handlebars.get, fmt = Ember.String.fm
   The following template:
 
   ```handlebars
-  {{collection contentBinding="App.items" itemViewClass="App.AnItemView"}}
+  {{collection contentBinding="Burnt.items" itemViewClass="Burnt.AnItemView"}}
   ```
 
   And application code
 
   ```javascript
-  App = Ember.Application.create();
-  App.items = [
+  Burnt = Ember.Application.create();
+  Burnt.items = [
     Ember.Object.create({name: 'Dave'}),
     Ember.Object.create({name: 'Mary'}),
     Ember.Object.create({name: 'Sara'})
   ];
 
-  App.AnItemView = Ember.View.extend({
+  Burnt.AnItemView = Ember.View.extend({
     template: Ember.Handlebars.compile("Greetings {{view.content.name}}")
   });
   ```
@@ -26616,7 +26616,7 @@ var get = Ember.get, handlebarsGet = Ember.Handlebars.get, fmt = Ember.String.fm
   the helper by passing it as the first argument:
 
   ```handlebars
-  {{#collection App.MyCustomCollectionClass contentBinding="App.items"}}
+  {{#collection Burnt.MyCustomCollectionClass contentBinding="Burnt.items"}}
     Hi {{view.content.name}}
   {{/collection}}
   ```
@@ -26629,7 +26629,7 @@ var get = Ember.get, handlebarsGet = Ember.Handlebars.get, fmt = Ember.String.fm
   item (note the camelcasing):
 
   ```handlebars
-  {{#collection contentBinding="App.items"
+  {{#collection contentBinding="Burnt.items"
                 itemTagName="p"
                 itemClassNames="greeting"}}
     Howdy {{view.content.name}}
@@ -27100,15 +27100,15 @@ GroupedEach.prototype = {
   The following template:
 
   ```handlebars
-  {{#view App.MyView }}
-    {{each view.items itemViewClass="App.AnItemView"}}
+  {{#view Burnt.MyView }}
+    {{each view.items itemViewClass="Burnt.AnItemView"}}
   {{/view}}
   ```
 
   And application code
 
   ```javascript
-  App = Ember.Application.create({
+  Burnt = Ember.Application.create({
     MyView: Ember.View.extend({
       items: [
         Ember.Object.create({name: 'Dave'}),
@@ -27118,7 +27118,7 @@ GroupedEach.prototype = {
     })
   });
 
-  App.AnItemView = Ember.View.extend({
+  Burnt.AnItemView = Ember.View.extend({
     template: Ember.Handlebars.compile("Greetings {{name}}")
   });
   ```
@@ -27151,7 +27151,7 @@ GroupedEach.prototype = {
   or synthesis for display:
 
   ```javascript
-  App.DeveloperController = Ember.ObjectController.extend({
+  Burnt.DeveloperController = Ember.ObjectController.extend({
     isAvailableForHire: function() {
       return !this.get('content.isEmployed') && this.get('content.isSeekingWork');
     }.property('isEmployed', 'isSeekingWork')
@@ -28167,7 +28167,7 @@ Ember.SelectOptgroup = Ember.CollectionView.extend({
   Example:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  Burnt.ApplicationController = Ember.Controller.extend({
     names: ["Yehuda", "Tom"]
   });
   ```
@@ -28189,7 +28189,7 @@ Ember.SelectOptgroup = Ember.CollectionView.extend({
   `value` property:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  Burnt.ApplicationController = Ember.Controller.extend({
     selectedName: 'Tom',
     names: ["Yehuda", "Tom"]
   });
@@ -28229,7 +28229,7 @@ Ember.SelectOptgroup = Ember.CollectionView.extend({
   element's text. Both paths must reference each object itself as `content`:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  Burnt.ApplicationController = Ember.Controller.extend({
     programmers: [
       {firstName: "Yehuda", id: 1},
       {firstName: "Tom",    id: 2}
@@ -28257,7 +28257,7 @@ Ember.SelectOptgroup = Ember.CollectionView.extend({
   can be bound to a property on another object:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  Burnt.ApplicationController = Ember.Controller.extend({
     programmers: [
       {firstName: "Yehuda", id: 1},
       {firstName: "Tom",    id: 2}
@@ -28296,7 +28296,7 @@ Ember.SelectOptgroup = Ember.CollectionView.extend({
   element:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  Burnt.ApplicationController = Ember.Controller.extend({
     selectedPerson: null,
     programmers: [
       {firstName: "Yehuda", id: 1},
@@ -28333,7 +28333,7 @@ Ember.SelectOptgroup = Ember.CollectionView.extend({
   results in there being no `<option>` with a `selected` attribute:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  Burnt.ApplicationController = Ember.Controller.extend({
     selectedProgrammer: null,
     programmers: [
       "Yehuda",
@@ -28365,7 +28365,7 @@ Ember.SelectOptgroup = Ember.CollectionView.extend({
   with the `prompt` option:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  Burnt.ApplicationController = Ember.Controller.extend({
     selectedProgrammer: null,
     programmers: [
       "Yehuda",
@@ -28407,7 +28407,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
-  
+
   var buffer = '', hashTypes, hashContexts;
   data.buffer.push("<option value=\"\">");
   hashTypes = {};
@@ -28418,7 +28418,7 @@ function program1(depth0,data) {
   }
 
 function program3(depth0,data) {
-  
+
   var stack1, hashTypes, hashContexts;
   hashTypes = {};
   hashContexts = {};
@@ -28427,7 +28427,7 @@ function program3(depth0,data) {
   else { data.buffer.push(''); }
   }
 function program4(depth0,data) {
-  
+
   var hashContexts, hashTypes;
   hashContexts = {'content': depth0,'label': depth0};
   hashTypes = {'content': "ID",'label': "ID"};
@@ -28438,7 +28438,7 @@ function program4(depth0,data) {
   }
 
 function program6(depth0,data) {
-  
+
   var stack1, hashTypes, hashContexts;
   hashTypes = {};
   hashContexts = {};
@@ -28447,7 +28447,7 @@ function program6(depth0,data) {
   else { data.buffer.push(''); }
   }
 function program7(depth0,data) {
-  
+
   var hashContexts, hashTypes;
   hashContexts = {'content': depth0};
   hashTypes = {'content': "ID"};
@@ -28465,7 +28465,7 @@ function program7(depth0,data) {
   stack1 = helpers['if'].call(depth0, "view.optionGroupPath", {hash:{},inverse:self.program(6, program6, data),fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   return buffer;
-  
+
 }),
   attributeBindings: ['multiple', 'disabled', 'tabindex', 'name'],
 
@@ -28788,7 +28788,7 @@ function program7(depth0,data) {
   ## Bound:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  Burnt.ApplicationController = Ember.Controller.extend({
     firstName: "Stanley",
     entryNotAllowed: true
   });
@@ -28854,7 +28854,7 @@ function program7(depth0,data) {
   ## Bound:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  Burnt.ApplicationController = Ember.Controller.extend({
     isAdmin: true
   });
   ```
@@ -28943,12 +28943,12 @@ Ember.Handlebars.registerHelper('input', function(options) {
 
   Bound:
 
-  In the following example, the `writtenWords` property on `App.ApplicationController`
+  In the following example, the `writtenWords` property on `Burnt.ApplicationController`
   will be updated live as the user types 'Lots of text that IS bound' into
   the text area of their browser's window.
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  Burnt.ApplicationController = Ember.Controller.extend({
     writtenWords: "Lots of text that IS bound"
   });
   ```
@@ -28969,7 +28969,7 @@ Ember.Handlebars.registerHelper('input', function(options) {
   somewhere else on your screen, you could use `Ember.computed.oneWay`:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  Burnt.ApplicationController = Ember.Controller.extend({
     writtenWords: "Lots of text that IS bound",
     outputWrittenWords: Ember.computed.oneWay("writtenWords")
   });
@@ -29004,7 +29004,7 @@ Ember.Handlebars.registerHelper('input', function(options) {
   your really binding in both directions:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  Burnt.ApplicationController = Ember.Controller.extend({
     writtenWords: "Lots of text that IS bound",
     twoWayWrittenWords: Ember.computed.alias("writtenWords")
   });
@@ -31389,7 +31389,7 @@ var get = Ember.get;
 */
 
 /**
-  
+
   Finds a controller instance.
 
   @for Ember
@@ -31404,8 +31404,8 @@ Ember.controllerFor = function(container, controllerName, lookupOptions) {
   Generates a controller automatically if none was provided.
   The type of generated controller depends on the context.
   You can customize your generated controllers by defining
-  `App.ObjectController` and `App.ArrayController`
-  
+  `Burnt.ObjectController` and `Burnt.ArrayController`
+
   @for Ember
   @method generateController
   @private
@@ -32005,7 +32005,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     or mixins rather than just replace the entire hash, e.g.:
 
     ```js
-    App.CanDisplayBanner = Ember.Mixin.create({
+    Burnt.CanDisplayBanner = Ember.Mixin.create({
       actions: {
         displayBanner: function(msg) {
           // ...
@@ -32013,7 +32013,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
       }
     });
 
-    App.WelcomeRoute = Ember.Route.extend(App.CanDisplayBanner, {
+    Burnt.WelcomeRoute = Ember.Route.extend(Burnt.CanDisplayBanner, {
       actions: {
         playMusic: function() {
           // ...
@@ -32032,7 +32032,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     is the Route object:
 
     ```js
-    App.SongRoute = Ember.Route.extend({
+    Burnt.SongRoute = Ember.Route.extend({
       actions: {
         myAction: function() {
           this.controllerFor("song");
@@ -32050,7 +32050,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     Take for example the following routes:
 
     ```js
-    App.DebugRoute = Ember.Mixin.create({
+    Burnt.DebugRoute = Ember.Mixin.create({
       actions: {
         debugRouteInformation: function() {
           console.debug("trololo");
@@ -32058,10 +32058,10 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
       }
     });
 
-    App.AnnoyingDebugRoute = Ember.Route.extend(App.DebugRoute, {
+    Burnt.AnnoyingDebugRoute = Ember.Route.extend(Burnt.DebugRoute, {
       actions: {
         debugRouteInformation: function() {
-          // also call the debugRouteInformation of mixed in App.DebugRoute
+          // also call the debugRouteInformation of mixed in Burnt.DebugRoute
           this._super();
 
           // show additional annoyance
@@ -32078,20 +32078,20 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     you must return `true` from the handler:
 
     ```js
-    App.Router.map(function() {
+    Burnt.Router.map(function() {
       this.resource("album", function() {
         this.route("song");
       });
     });
 
-    App.AlbumRoute = Ember.Route.extend({
+    Burnt.AlbumRoute = Ember.Route.extend({
       actions: {
         startPlaying: function() {
         }
       }
     });
 
-    App.AlbumSongRoute = Ember.Route.extend({
+    Burnt.AlbumSongRoute = Ember.Route.extend({
       actions: {
         startPlaying: function() {
           // ...
@@ -32121,7 +32121,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     half-filled out:
 
     ```js
-    App.ContactFormRoute = Ember.Route.extend({
+    Burnt.ContactFormRoute = Ember.Route.extend({
       actions: {
         willTransition: function(transition) {
           if (this.controller.get('userHasEnteredData')) {
@@ -32156,7 +32156,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     routes:
 
     ```js
-    App.AdminRoute = Ember.Route.extend({
+    Burnt.AdminRoute = Ember.Route.extend({
       beforeModel: function() {
         throw "bad things!";
         // ...or, equivalently:
@@ -32187,7 +32187,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     `error` handler on `ApplicationRoute`:
 
     ```js
-    App.ApplicationRoute = Ember.Route.extend({
+    Burnt.ApplicationRoute = Ember.Route.extend({
       actions: {
         error: function(error, transition) {
           this.controllerFor('banner').displayError(error.message);
@@ -32241,13 +32241,13 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     Simple Transition Example
 
     ```javascript
-    App.Router.map(function() {
+    Burnt.Router.map(function() {
       this.route("index");
       this.route("secret");
       this.route("fourOhFour", { path: "*:"});
     });
 
-    App.IndexRoute = Ember.Route.extend({
+    Burnt.IndexRoute = Ember.Route.extend({
       actions: {
         moveToSecret: function(context){
           if (authorized()){
@@ -32262,13 +32262,13 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
    Transition to a nested route
 
    ```javascript
-   App.Router.map(function() {
+   Burnt.Router.map(function() {
      this.resource('articles', { path: '/articles' }, function() {
        this.route('new');
      });
    });
 
-   App.IndexRoute = Ember.Route.extend({
+   Burnt.IndexRoute = Ember.Route.extend({
      actions: {
        transitionToNewArticle: function() {
          this.transitionTo('articles.new');
@@ -32280,14 +32280,14 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     Multiple Models Example
 
     ```javascript
-    App.Router.map(function() {
+    Burnt.Router.map(function() {
       this.route("index");
       this.resource('breakfast', {path:':breakfastId'}, function(){
         this.resource('cereal', {path: ':cerealId'});
       });
     });
 
-    App.IndexRoute = Ember.Route.extend({
+    Burnt.IndexRoute = Ember.Route.extend({
       actions: {
         moveToChocolateCereal: function(){
           var cereal = { cerealId: "ChocolateYumminess"},
@@ -32337,12 +32337,12 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     Example
 
     ```javascript
-    App.Router.map(function() {
+    Burnt.Router.map(function() {
       this.route("index");
       this.route("secret");
     });
 
-    App.SecretRoute = Ember.Route.extend({
+    Burnt.SecretRoute = Ember.Route.extend({
       afterModel: function() {
         if (!authorized()){
           this.replaceWith('index');
@@ -32368,11 +32368,11 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     Example
 
     ```javascript
-    App.Router.map(function() {
+    Burnt.Router.map(function() {
       this.route("index");
     });
 
-    App.ApplicationRoute = Ember.Route.extend({
+    Burnt.ApplicationRoute = Ember.Route.extend({
       actions: {
         track: function(arg) {
           console.log(arg, 'was clicked');
@@ -32380,7 +32380,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
       }
     });
 
-    App.IndexRoute = Ember.Route.extend({
+    Burnt.IndexRoute = Ember.Route.extend({
       actions: {
         trackIfDebug: function(arg) {
           if (debug) {
@@ -32474,16 +32474,16 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     the server that is required to enter a route.
 
     ```js
-    App.PostRoute = Ember.Route.extend({
+    Burnt.PostRoute = Ember.Route.extend({
       beforeModel: function(transition) {
-        if (!App.Post) {
+        if (!Burnt.Post) {
           return Ember.$.getScript('/models/post.js');
         }
       }
     });
     ```
 
-    If `App.Post` doesn't exist in the above example,
+    If `Burnt.Post` doesn't exist in the above example,
     `beforeModel` will use jQuery's `getScript`, which
     returns a promise that resolves after the server has
     successfully retrieved and executed the code from the
@@ -32495,9 +32495,9 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     hook):
 
     ```js
-    App.PostRoute = Ember.Route.extend({
+    Burnt.PostRoute = Ember.Route.extend({
       beforeModel: function(transition) {
-        if (!App.Post) {
+        if (!Burnt.Post) {
           var self = this;
           return Ember.$.getScript('post.js').then(null, function(e) {
             self.transitionTo('help');
@@ -32538,7 +32538,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     resolved.
 
     ```js
-    App.PostsRoute = Ember.Route.extend({
+    Burnt.PostsRoute = Ember.Route.extend({
       afterModel: function(posts, transition) {
         if (posts.length === 1) {
           this.transitionTo('post.show', posts[0]);
@@ -32582,17 +32582,17 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     this route.
 
     ```js
-    App.Router.map(function() {
+    Burnt.Router.map(function() {
       this.resource('post', {path: '/posts/:post_id'});
     });
     ```
 
-    The model for the `post` route is `App.Post.find(params.post_id)`.
+    The model for the `post` route is `Burnt.Post.find(params.post_id)`.
 
     By default, if your route has a dynamic segment ending in `_id`:
 
     * The model class is determined from the segment (`post_id`'s
-      class is `App.Post`)
+      class is `Burnt.Post`)
     * The find method is called on the model class with the value of
       the dynamic segment.
 
@@ -32611,9 +32611,9 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     Example
 
     ```js
-    App.PostRoute = Ember.Route.extend({
+    Burnt.PostRoute = Ember.Route.extend({
       model: function(params) {
-        return App.Post.find(params.post_id);
+        return Burnt.Post.find(params.post_id);
       }
     });
     ```
@@ -32689,11 +32689,11 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     for the URL.
 
     ```js
-    App.Router.map(function() {
+    Burnt.Router.map(function() {
       this.resource('post', {path: '/posts/:post_id'});
     });
 
-    App.PostRoute = Ember.Route.extend({
+    Burnt.PostRoute = Ember.Route.extend({
       model: function(params) {
         // the server returns `{ id: 12 }`
         return jQuery.getJSON("/posts/" + params.post_id);
@@ -32759,19 +32759,19 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     As an example, consider the router:
 
     ```js
-    App.Router.map(function() {
+    Burnt.Router.map(function() {
       this.resource('post', {path: '/posts/:post_id'});
     });
     ```
 
-    For the `post` route, a controller named `App.PostController` would
+    For the `post` route, a controller named `Burnt.PostController` would
     be used if it is defined. If it is not defined, an `Ember.ObjectController`
     instance would be used.
 
     Example
 
     ```js
-    App.PostRoute = Ember.Route.extend({
+    Burnt.PostRoute = Ember.Route.extend({
       setupController: function(controller, model) {
         controller.set('model', model);
       }
@@ -32795,7 +32795,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     associated route or using `generateController`.
 
     ```js
-    App.PostRoute = Ember.Route.extend({
+    Burnt.PostRoute = Ember.Route.extend({
       setupController: function(controller, post) {
         this._super(controller, post);
         this.controllerFor('posts').set('currentPost', post);
@@ -32835,7 +32835,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     Example
 
     ```js
-    App.PostRoute = Ember.Route.extend({
+    Burnt.PostRoute = Ember.Route.extend({
       setupController: function(controller, post) {
         this._super(controller, post);
         this.generateController('posts', post);
@@ -32864,13 +32864,13 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     Example
 
     ```js
-    App.Router.map(function() {
+    Burnt.Router.map(function() {
         this.resource('post', { path: '/post/:post_id' }, function() {
             this.resource('comments');
         });
     });
 
-    App.CommentsRoute = Ember.Route.extend({
+    Burnt.CommentsRoute = Ember.Route.extend({
         afterModel: function() {
             this.set('post', this.modelFor('post'));
         }
@@ -32909,7 +32909,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     alternative templates.
 
     ```js
-    App.PostsRoute = Ember.Route.extend({
+    Burnt.PostsRoute = Ember.Route.extend({
       renderTemplate: function(controller, model) {
         var favController = this.controllerFor('favoritePost');
 
@@ -32941,12 +32941,12 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     For example:
 
     ```js
-    App.Router.map(function() {
+    Burnt.Router.map(function() {
       this.route('index');
       this.resource('post', {path: '/posts/:post_id'});
     });
 
-    App.PostRoute = App.Route.extend({
+    Burnt.PostRoute = Burnt.Route.extend({
       renderTemplate: function() {
         this.render();
       }
@@ -32965,7 +32965,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     You can override this behavior:
 
     ```js
-    App.PostRoute = App.Route.extend({
+    Burnt.PostRoute = Burnt.Route.extend({
       renderTemplate: function() {
         this.render('myPost', {   // the template to render
           into: 'index',          // the template to render into
@@ -32977,7 +32977,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     ```
 
     Remember that the controller's `content` will be the route's model. In
-    this case, the default model will be `App.Post.find(params.post_id)`.
+    this case, the default model will be `Burnt.Post.find(params.post_id)`.
 
     @method render
     @param {String} name the name of the template to render
@@ -33043,7 +33043,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     Example:
 
     ```js
-    App.ApplicationRoute = App.Route.extend({
+    Burnt.ApplicationRoute = Burnt.Route.extend({
       actions: {
         showModal: function(evt) {
           this.render(evt.modalName, {
@@ -33421,7 +33421,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
       Example:
 
       ```javascript
-      App.MyLinkView = Ember.LinkView.extend({
+      Burnt.MyLinkView = Ember.LinkView.extend({
         init: function() {
           this._super();
           Ember.Logger.log('Event is ' + this.get('eventName'));
@@ -33838,7 +33838,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     the model context of the linked route:
 
     ```javascript
-    App.Router.map(function() {
+    Burnt.Router.map(function() {
       this.resource("photoGallery", {path: "hamster-photos/:photo_id"});
     });
     ```
@@ -33863,7 +33863,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     route with the dynamic segments:
 
     ```javascript
-    App.Router.map(function() {
+    Burnt.Router.map(function() {
       this.resource("photoGallery", {path: "hamster-photos/:photo_id"}, function() {
         this.route("comment", {path: "comments/:comment_id"});
       });
@@ -33890,7 +33890,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     of the dynamic segment:
 
     ```javascript
-    App.Router.map(function() {
+    Burnt.Router.map(function() {
       this.resource("photoGallery", {path: "hamster-photos/:photo_id"});
     });
     ```
@@ -34030,14 +34030,14 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     ```
 
     By default, a template based on Ember's naming conventions will be rendered
-    into the `outlet` (e.g. `App.PostsRoute` will render the `posts` template).
+    into the `outlet` (e.g. `Burnt.PostsRoute` will render the `posts` template).
 
     You can render a different template by using the `render()` method in the
     route's `renderTemplate` hook. The following will render the `favoritePost`
     template into the `outlet`.
 
     ``` javascript
-    App.PostsRoute = Ember.Route.extend({
+    Burnt.PostsRoute = Ember.Route.extend({
       renderTemplate: function() {
         this.render('favoritePost');
       }
@@ -34056,7 +34056,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
 
 
     ``` javascript
-    App.PostsRoute = Ember.Route.extend({
+    Burnt.PostsRoute = Ember.Route.extend({
       renderTemplate: function() {
         this.render('favoritePost', { outlet: 'favoritePost' });
         this.render('posts', { outlet: 'posts' });
@@ -34068,11 +34068,11 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     templates rendered into it.
 
     ``` handlebars
-    {{outlet viewClass=App.SectionContainer}}
+    {{outlet viewClass=Burnt.SectionContainer}}
     ```
 
     ``` javascript
-    App.SectionContainer = Ember.ContainerView.extend({
+    Burnt.SectionContainer = Ember.ContainerView.extend({
       tagName: 'section',
       classNames: ['special']
     });
@@ -34133,7 +34133,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     Example:
 
     ```javascript
-    App.NavigationController = Ember.Controller.extend({
+    Burnt.NavigationController = Ember.Controller.extend({
       who: "world"
     });
     ```
@@ -34375,11 +34375,11 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     And application code
 
     ```javascript
-    App.ApplicationController = Ember.Controller.extend({
+    Burnt.ApplicationController = Ember.Controller.extend({
       actions: {
         anActionName: function() {
-          
-        }  
+
+        }
       }
     });
     ```
@@ -34395,7 +34395,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     ```
 
     Clicking "click me" will trigger the `anActionName` action of the
-    `App.ApplicationController`. In this case, no additional parameters will be passed.
+    `Burnt.ApplicationController`. In this case, no additional parameters will be passed.
 
     If you provide additional parameters to the helper:
 
@@ -34483,7 +34483,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     ```
 
     ```javascript
-    App.ApplicationView = Ember.View.extend({
+    Burnt.ApplicationView = Ember.View.extend({
       actions: {
         anActionName: function(){}
       }
@@ -34699,7 +34699,7 @@ Ember.ControllerMixin.reopen({
       this.resource('blogPost', {path:':blogPostId'}, function(){
         this.resource('blogComment', {path: ':blogCommentId'});
       });
-      
+
       aController.transitionToRoute('blogComment', aPost, aComment);
     ```
 
@@ -34730,7 +34730,7 @@ Ember.ControllerMixin.reopen({
 
   /**
     Transition into another route while replacing the current URL, if possible.
-    This will replace the current history entry instead of adding a new one. 
+    This will replace the current history entry instead of adding a new one.
     Beside that, it is identical to `transitionToRoute` in all other respects.
 
     ```javascript
@@ -34754,7 +34754,7 @@ Ember.ControllerMixin.reopen({
       this.resource('blogPost', {path:':blogPostId'}, function(){
         this.resource('blogComment', {path: ':blogCommentId'});
       });
-      
+
       aController.replaceRoute('blogComment', aPost, aComment);
     ```
 
@@ -34944,7 +34944,7 @@ Ember.View.reopen({
 
 // Add a new named queue after the 'actions' queue (where RSVP promises
 // resolve), which is used in router transitions to prevent unnecessary
-// loading state entry if all context promises resolve on the 
+// loading state entry if all context promises resolve on the
 // 'actions' queue first.
 
 var queues = Ember.run.queues,
@@ -35027,7 +35027,7 @@ Ember.Location = {
    ```javascript
    Ember.Location.registerImplementation('history', Ember.HistoryLocation);
 
-   App.Router.reopen({
+   Burnt.Router.reopen({
      location: 'history'
    });
    ```
@@ -35635,7 +35635,7 @@ var get = Ember.get,
 * templates are looked up on `Ember.TEMPLATES`
 * other names are looked up on the application after converting
   the name. For example, `controller:post` looks up
-  `App.PostController` by default.
+  `Burnt.PostController` by default.
 * there are some nuances (see examples below)
 
   ### How Resolving Works
@@ -35657,7 +35657,7 @@ var get = Ember.get,
   is resolved like so:
 
   ```javascript
-  App = Ember.Application.create({
+  Burnt = Ember.Application.create({
     Resolver: Ember.DefaultResolver.extend({
       resolveTemplate: function(parsedName) {
         var resolvedTemplate = this._super(parsedName);
@@ -35677,20 +35677,20 @@ var get = Ember.get,
   'template:blogPost' //=> Ember.TEMPLATES['blogPost']
                       //   OR
                       //   Ember.TEMPLATES['blog_post']
-  'controller:post' //=> App.PostController
-  'controller:posts.index' //=> App.PostsIndexController
+  'controller:post' //=> Burnt.PostController
+  'controller:posts.index' //=> Burnt.PostsIndexController
   'controller:blog/post' //=> Blog.PostController
   'controller:basic' //=> Ember.Controller
-  'route:post' //=> App.PostRoute
-  'route:posts.index' //=> App.PostsIndexRoute
+  'route:post' //=> Burnt.PostRoute
+  'route:posts.index' //=> Burnt.PostsIndexRoute
   'route:blog/post' //=> Blog.PostRoute
   'route:basic' //=> Ember.Route
-  'view:post' //=> App.PostView
-  'view:posts.index' //=> App.PostsIndexView
+  'view:post' //=> Burnt.PostView
+  'view:posts.index' //=> Burnt.PostsIndexView
   'view:blog/post' //=> Blog.PostView
   'view:basic' //=> Ember.View
-  'foo:post' //=> App.PostFoo
-  'model:post' //=> App.Post
+  'foo:post' //=> Burnt.PostFoo
+  'model:post' //=> Burnt.Post
   ```
 
   @class DefaultResolver
@@ -35962,7 +35962,7 @@ DeprecatedContainer.prototype = {
   very first thing you should do in your application is create the instance:
 
   ```javascript
-  window.App = Ember.Application.create();
+  window.Burnt = Ember.Application.create();
   ```
 
   Typically, the application object is the only global variable. All other
@@ -35972,7 +35972,7 @@ DeprecatedContainer.prototype = {
   For example, if you define a view class, it might look like this:
 
   ```javascript
-  App.MyView = Ember.View.extend();
+  Burnt.MyView = Ember.View.extend();
   ```
 
   By default, calling `Ember.Application.create()` will automatically initialize
@@ -36014,7 +36014,7 @@ DeprecatedContainer.prototype = {
   names by setting the application's `customEvents` property:
 
   ```javascript
-  App = Ember.Application.create({
+  Burnt = Ember.Application.create({
     customEvents: {
       // add support for the paste event
       'paste: "paste"
@@ -36031,7 +36031,7 @@ DeprecatedContainer.prototype = {
   should be delegated, set your application's `rootElement` property:
 
   ```javascript
-  window.App = Ember.Application.create({
+  window.Burnt = Ember.Application.create({
     rootElement: '#ember-app'
   });
   ```
@@ -36068,7 +36068,7 @@ DeprecatedContainer.prototype = {
   the `LOG_TRANSITIONS_INTERNAL` flag:
 
   ```javascript
-  window.App = Ember.Application.create({
+  window.Burnt = Ember.Application.create({
     LOG_TRANSITIONS: true, // basic logging of successful transitions
     LOG_TRANSITIONS_INTERNAL: true // detailed logging of all routing steps
   });
@@ -36136,7 +36136,7 @@ var Application = Ember.Application = Ember.Namespace.extend(Ember.DeferredMixin
     corresponding view method name as the value. For example:
 
     ```javascript
-    App = Ember.Application.create({
+    Burnt = Ember.Application.create({
       customEvents: {
         // add support for the paste event
         'paste: "paste"
@@ -36207,9 +36207,9 @@ var Application = Ember.Application = Ember.Namespace.extend(Ember.DeferredMixin
     This allows application developers to do:
 
     ```javascript
-    var App = Ember.Application.create();
+    var Burnt = Ember.Application.create();
 
-    App.Router.map(function() {
+    Burnt.Router.map(function() {
       this.resource('posts');
     });
     ```
@@ -36265,12 +36265,12 @@ var Application = Ember.Application = Ember.Namespace.extend(Ember.DeferredMixin
     Example:
 
     ```javascript
-    App = Ember.Application.create();
-    App.deferReadiness();
+    Burnt = Ember.Application.create();
+    Burnt.deferReadiness();
 
     jQuery.getJSON("/auth-token", function(token) {
-      App.token = token;
-      App.advanceReadiness();
+      Burnt.token = token;
+      Burnt.advanceReadiness();
     });
     ```
 
@@ -36311,22 +36311,22 @@ var Application = Ember.Application = Ember.Namespace.extend(Ember.DeferredMixin
     Example:
 
     ```javascript
-    App = Ember.Application.create();
+    Burnt = Ember.Application.create();
 
-    App.Person  = Ember.Object.extend({});
-    App.Orange  = Ember.Object.extend({});
-    App.Email   = Ember.Object.extend({});
-    App.Session = Ember.Object.create({});
+    Burnt.Person  = Ember.Object.extend({});
+    Burnt.Orange  = Ember.Object.extend({});
+    Burnt.Email   = Ember.Object.extend({});
+    Burnt.Session = Ember.Object.create({});
 
-    App.register('model:user', App.Person, {singleton: false });
-    App.register('fruit:favorite', App.Orange);
-    App.register('communication:main', App.Email, {singleton: false});
-    App.register('session', App.Session, {instantiate: false});
+    Burnt.register('model:user', Burnt.Person, {singleton: false });
+    Burnt.register('fruit:favorite', Burnt.Orange);
+    Burnt.register('communication:main', Burnt.Email, {singleton: false});
+    Burnt.register('session', Burnt.Session, {instantiate: false});
     ```
 
     @method register
     @param  fullName {String} type:name (e.g., 'model:user')
-    @param  factory {Function} (e.g., App.Person)
+    @param  factory {Function} (e.g., Burnt.Person)
     @param  options {String} (optional)
   **/
   register: function() {
@@ -36339,9 +36339,9 @@ var Application = Ember.Application = Ember.Namespace.extend(Ember.DeferredMixin
     Example:
 
     ```javascript
-    App.inject(<full_name or type>, <property name>, <full_name>)
-    App.inject('model:user', 'email', 'model:email')
-    App.inject('model', 'source', 'source:main')
+    Burnt.inject(<full_name or type>, <property name>, <full_name>)
+    Burnt.inject('model:user', 'email', 'model:email')
+    Burnt.inject('model', 'source', 'source:main')
     ```
 
     @method inject
@@ -36382,7 +36382,7 @@ var Application = Ember.Application = Ember.Namespace.extend(Ember.DeferredMixin
   _initialize: function() {
     if (this.isDestroyed) { return; }
 
-    // At this point, the App.Router must already be assigned
+    // At this point, the Burnt.Router must already be assigned
     if (this.Router) {
       var container = this.__container__;
       container.unregister('router:main');
@@ -36413,24 +36413,24 @@ var Application = Ember.Application = Ember.Namespace.extend(Ember.DeferredMixin
 
     ```javascript
 
-    var App;
+    var Burnt;
 
     Ember.run(function() {
-      App = Ember.Application.create();
+      Burnt = Ember.Application.create();
     });
 
     module("acceptance test", {
       setup: function() {
-        App.reset();
+        Burnt.reset();
       }
     });
 
     test("first test", function() {
-      // App is freshly reset
+      // Burnt is freshly reset
     });
 
     test("first test", function() {
-      // App is again freshly reset
+      // Burnt is again freshly reset
     });
     ```
 
@@ -36442,17 +36442,17 @@ var Application = Ember.Application = Ember.Namespace.extend(Ember.DeferredMixin
 
     ```javascript
 
-    var App;
+    var Burnt;
 
     Ember.run(function() {
-      App = Ember.Application.create();
+      Burnt = Ember.Application.create();
     });
 
     module("acceptance test", {
       setup: function() {
         Ember.run(function() {
-          App.reset();
-          App.deferReadiness();
+          Burnt.reset();
+          Burnt.deferReadiness();
         });
       }
     });
@@ -36461,7 +36461,7 @@ var Application = Ember.Application = Ember.Namespace.extend(Ember.DeferredMixin
       ok(true, 'something before app is initialized');
 
       Ember.run(function() {
-        App.advanceReadiness();
+        Burnt.advanceReadiness();
       });
       ok(true, 'something after app is initialized');
     });
@@ -36694,7 +36694,7 @@ Ember.Application.reopenClass({
 
   * templates are looked up on `Ember.TEMPLATES`
   * other names are looked up on the application after classifying the name.
-    For example, `controller:post` looks up `App.PostController` by default.
+    For example, `controller:post` looks up `Burnt.PostController` by default.
   * if the default lookup fails, look for registered classes on the container
 
   This allows the application to register default injections in the container
@@ -36789,7 +36789,7 @@ Ember.ControllerMixin.reopen({
     For example, when you define a controller:
 
     ```javascript
-    App.CommentsController = Ember.ArrayController.extend({
+    Burnt.CommentsController = Ember.ArrayController.extend({
       needs: ['post']
     });
     ```
@@ -36799,7 +36799,7 @@ Ember.ControllerMixin.reopen({
     `controllers` property:
 
     ```javascript
-    this.get('controllers.post'); // instance of App.PostController
+    this.get('controllers.post'); // instance of Burnt.PostController
     ```
 
     This is only available for singleton controllers.
@@ -36841,10 +36841,10 @@ Ember.ControllerMixin.reopen({
     property will be accessible by name through this property.
 
     ```javascript
-    App.CommentsController = Ember.ArrayController.extend({
+    Burnt.CommentsController = Ember.ArrayController.extend({
       needs: ['post'],
       postTitle: function(){
-        var currentPost = this.get('controllers.post'); // instance of App.PostController
+        var currentPost = this.get('controllers.post'); // instance of Burnt.PostController
         return currentPost.get('title');
       }.property('controllers.post.title')
     });
@@ -37361,7 +37361,7 @@ Ember.Test = {
 
   /**
     `registerHelper` is used to register a test helper that will be injected
-    when `App.injectTestHelpers` is called.
+    when `Burnt.injectTestHelpers` is called.
 
     The helper method will always be called with the current Application as
     the first parameter.
@@ -37377,8 +37377,8 @@ Ember.Test = {
     called with `app` as the first parameter.
 
     ```javascript
-      App = Ember.Application.create();
-      App.injectTestHelpers();
+      Burnt = Ember.Application.create();
+      Burnt.injectTestHelpers();
       boot();
     ```
 
@@ -37397,7 +37397,7 @@ Ember.Test = {
 
   /**
     `registerAsyncHelper` is used to register an async test helper that will be injected
-    when `App.injectTestHelpers` is called.
+    when `Burnt.injectTestHelpers` is called.
 
     The helper method will always be called with the current Application as
     the first parameter.
@@ -37461,7 +37461,7 @@ Ember.Test = {
   },
 
   /**
-    Used to register callbacks to be fired whenever `App.injectTestHelpers`
+    Used to register callbacks to be fired whenever `Burnt.injectTestHelpers`
     is called.
 
     The callback will receive the current application as an argument.
@@ -37506,7 +37506,7 @@ Ember.Test = {
    Used to allow ember-testing to communicate with a specific testing
    framework.
 
-   You can manually set it before calling `App.setupForTesting()`.
+   You can manually set it before calling `Burnt.setupForTesting()`.
 
    Example:
    ```
@@ -37659,7 +37659,7 @@ Ember.Application.reopen({
 
    Example:
   ```
-  App.setupForTesting();
+  Burnt.setupForTesting();
   ```
 
     @method setupForTesting
@@ -37701,7 +37701,7 @@ Ember.Application.reopen({
 
   Example:
   ```
-  App.injectTestHelpers();
+  Burnt.injectTestHelpers();
   ```
 
     @method injectTestHelpers
@@ -37729,7 +37729,7 @@ Ember.Application.reopen({
 
     Example:
     ```
-    App.removeTestHelpers();
+    Burnt.removeTestHelpers();
     ```
 
     @public
@@ -38276,7 +38276,7 @@ Ember.StateManager = generateRemovedClass("Ember.StateManager");
 
 /**
   This was exported to ember-states plugin for v 1.0.0 release. See: https://github.com/emberjs/ember-states
-  
+
   @class StateManager
   @namespace Ember
 */
@@ -38285,7 +38285,7 @@ Ember.State = generateRemovedClass("Ember.State");
 
 /**
   This was exported to ember-states plugin for v 1.0.0 release. See: https://github.com/emberjs/ember-states
-  
+
   @class State
   @namespace Ember
 */
