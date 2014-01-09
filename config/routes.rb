@@ -1,5 +1,5 @@
 Burnt::Application.routes.draw do
-  resources :locations
+  resources :locations, defaults: {format: :json}
 
   root :to => 'assets#index'
   get "assets/index"
